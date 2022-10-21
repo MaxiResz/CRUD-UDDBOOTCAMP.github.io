@@ -27,7 +27,12 @@ const LeerDB = () =>{
         arrayActividades = [];
     }else{
         arrayActividades.forEach(element =>{
-           listaActividadesUI.innerHTML += `<div class="alert alert-primary" role="alert"><b>${element.actividad}</b> - ${element.estado} <span class="float-end"><i class="material-icons-outlined float-right">delete</i><i class="material-icons-outlined float-right">done</i></span></div></div>`
+            if(element.estado){
+                listaActividadesUI.innerHTML += `<div class="alert alert-success" role="alert"><b>${element.actividad}</b> - ${element.estado} <span class="float-end"><i class="material-icons-outlined float-right">delete</i><i class="material-icons-outlined float-right">done</i></span></div></div>`
+
+            }else{
+                listaActividadesUI.innerHTML += `<div class="alert alert-primary" role="alert"><b>${element.actividad}</b> - ${element.estado} <span class="float-end"><i class="material-icons-outlined float-right">delete</i><i class="material-icons-outlined float-right">done</i></span></div></div>`
+            }
         })
     }
 
@@ -38,13 +43,19 @@ const eliminarDB = (actividad) =>{
     arrayActividades.forEach((elemento, index) =>{
         if (elemento.actividad === actividad){
             indexArray = index;
-        }
+        }  
         
-    })
+    });
 
-    arrayActividades.splice(indexArray,1)
-    LeerDB();
+    arrayActividades.splice(indexArray,1);
+    GuardarDB();
 
+}
+
+const EditarDB = (actividad)=>{
+    let indexArray = arrayActividades.findIndex((elemento) =>elemento.actividad === actividad); 
+     arrayActividades[indexArray].estado = true;
+     GuardarDB(); 
 }
 
 
@@ -67,12 +78,11 @@ listaActividadesUI.addEventListener('click', (e) =>{
 e.preventDefault();
 
 if(e.target.innerHTML === 'done' ||e.target.innerHTML === 'delete'){
-   const texto= e.composedPath[2].childNodes[0].innerHTML;
     if (e.target.innerHTML === 'delete'){
-        eliminarDB(texto);
+        eliminarDB(e.path[2].childNodes[0].innerHTML);
     }
     if (e.target.innerHTML === 'done'){
-
+        EditarDB(e.path[2].childNodes[0].innerHTML);
     }
 }
 
