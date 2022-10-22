@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+    background-color: white;
+    height: 100%;
+    border-radius: 8px;
+}
+.listaActividades{
+    background-color: white;
+    border-radius: 8px;
+
+}
+h3{
+    margin-top: 2em;
+    padding-top: 2em;
+}
+.contenedor{
+    position: sticky;
+}
+
